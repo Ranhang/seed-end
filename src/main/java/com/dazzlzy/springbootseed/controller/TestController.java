@@ -5,7 +5,6 @@ import com.dazzlzy.common.base.BaseResultGenerator;
 import com.dazzlzy.common.configuration.ProjectProperties;
 import com.dazzlzy.springbootseed.dao.user.UserMapper;
 import com.dazzlzy.springbootseed.model.user.User;
-import com.dazzlzy.springbootseed.model.user.User2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
