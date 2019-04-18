@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @Slf4j
-@Api(value = "/test", tags = "测试接口模块")
+@Api("角色")
 @RestController
-@RequestMapping(value = "test")
+@RequestMapping(value = "role")
 @RequiredArgsConstructor
 public class RoleController {
 }

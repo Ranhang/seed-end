@@ -6,7 +6,7 @@
     日志级别：TRACE < DEBUG < INFO < WARN < ERROR < FATAL
     如果设置为WARN，则低于WARN的信息都不会输出
 -->
-<Configuration status="INFO" monitorInterval="30">
+<Configuration status="debug" monitorInterval="30">
 
     <!-- 参数配置 -->
     <Properties>

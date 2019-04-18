@@ -2,6 +2,7 @@ package com.dazzlzy.springbootseed.service;
 
 import com.dazzlzy.springbootseed.model.user.User;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -22,12 +23,17 @@ public interface IUserService {
     User queryByIdOrName(Long userId, String userName);
 
     /**
-     * 据用户ID查询用户信息（包括权限角色）
-     *
-     * @param userId 用户ID
-     * @return 用户信息
+     * 更新用户
+     * @param user 更新信息
      */
-    User queryUserById(Long userId);
+    void update(User user);
+
+
+    /**
+     * 删除用户
+     * @param ids 批量删除用户
+     */
+    void delete(List<Integer> ids);
 
     /**
      * 根据用户ID集合查询用户信息（包括权限角色）
@@ -42,6 +48,14 @@ public interface IUserService {
      *
      * @param user 用户信息
      */
-    void addUser(User user);
+    void addUser(User user) throws ParseException;
+
+    /**
+     * 带条件分页查询
+     *
+     * @param user 用户信息
+     * @return 用户集合
+     */
+    List<User> queryByPage(User user);
 
 }

@@ -19,5 +19,4 @@ public interface IShiroService {
      * @return 若返回为null或者抛出异常，则认证失败，若返回有值，则认证成功
      */
     User login(Long userId, String userName, String password);
-
 }

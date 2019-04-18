@@ -1,15 +1,20 @@
 package com.dazzlzy.springbootseed.service.impl;
 
 import com.dazzlzy.common.exception.BusinessException;
+import com.dazzlzy.common.utils.DateUtils;
 import com.dazzlzy.common.utils.PasswordUtil;
 import com.dazzlzy.common.utils.RandomUtil;
 import com.dazzlzy.springbootseed.dao.user.UserMapper;
 import com.dazzlzy.springbootseed.model.user.User;
 import com.dazzlzy.springbootseed.service.IUserService;
+import com.github.pagehelper.PageHelper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -19,11 +24,12 @@ import java.util.List;
  * @author zhaozhenyao
  * @date 2018/5/9
  */
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public User queryByIdOrName(Long userId, String userName) {
@@ -31,8 +37,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User queryUserById(Long userId) {
-        return this.userMapper.selectUserByIdOrName(userId, null);
+    public void update(User user){
+        userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public void delete(List<Integer> ids) {
+        if(!CollectionUtils.isEmpty(ids)){
+            ids.forEach(id -> {
+                userMapper.deleteByPrimaryKey(id);
+            });
+        }
     }
 
     @Override
@@ -41,8 +56,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void addUser(User user) {
-        Date now = new Date(System.currentTimeMillis());
+    public void addUser(User user) throws ParseException {
+        String now = DateUtils.getCurrentDateStr(DateUtils.HOUR_PATTERN);
         validateUser(user);
         // 随机盐
         String salt = RandomUtil.getSalt();
@@ -52,9 +67,18 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(password);
         user.setCreateTime(now);
         user.setModifyTime(now);
+
+        log.info("新增用户user={}",user);
         userMapper.insert(user);
     }
 
+    @Override
+    public List<User> queryByPage(User user){
+        if (user.getPage() != null && user.getRows() != null) {
+            PageHelper.startPage(user.getPage(), user.getRows());
+        }
+        return userMapper.selectAll();
+    }
     /**
      * 检查用户信息是否正确
      *
@@ -71,6 +95,5 @@ public class UserServiceImpl implements IUserService {
             throw new BusinessException("用户密码不能为空");
         }
     }
-
 
 }

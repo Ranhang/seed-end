@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @Slf4j
-@Api("角色")
+@Api("资源")
 @RestController
-@RequestMapping(value = "/role")
+@RequestMapping(value = "/resource")
 @RequiredArgsConstructor
 public class ResourceController {
 }
