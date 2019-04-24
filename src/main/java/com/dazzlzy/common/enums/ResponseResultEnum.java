@@ -9,7 +9,7 @@ import lombok.Getter;
  * @date 2018/3/21
  */
 @Getter
-public enum RESPONSERESULTENUM {
+public enum ResponseResultEnum {
     /**
      * SUCCESS: 200 成功
      * FAIL: 400 失败
@@ -25,7 +25,7 @@ public enum RESPONSERESULTENUM {
 
     private String message;
 
-    RESPONSERESULTENUM(int code, String message) {
+    ResponseResultEnum(int code, String message) {
         this.code = code;
     }
 

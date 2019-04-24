@@ -2,6 +2,9 @@ package com.dazzlzy.springbootseed.service;
 
 import com.dazzlzy.springbootseed.model.user.Role;
 
+import java.text.ParseException;
+import java.util.List;
+
 /**
  * 角色Service接口
  *
@@ -15,6 +18,13 @@ public interface IRoleService {
      *
      * @param role 角色
      */
-    void addRole(Role role);
+    void addRole(Role role) throws ParseException;
 
+    void delete(List<Integer> ids);
+
+    void update(Role role);
+
+    Role queryByIdOrName(Long id, String name);
+
+    List<Role> queryByPage(Role role);
 }

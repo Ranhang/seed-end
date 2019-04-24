@@ -2,7 +2,7 @@ package com.dazzlzy.common.shiro;
 
 import com.dazzlzy.common.enums.SessionEnum;
 import com.dazzlzy.common.utils.SessionUtil;
-import com.dazzlzy.springbootseed.model.user.Permission;
+import com.dazzlzy.springbootseed.model.user.Resource;
 import com.dazzlzy.springbootseed.model.user.Role;
 import com.dazzlzy.springbootseed.model.user.User;
 import com.dazzlzy.springbootseed.service.IShiroService;
@@ -68,21 +68,17 @@ public class BaseRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = SessionUtil.getCurrentUser();
         if (user != null) {
-            Set<String> roleCodes = new HashSet<>();
-            List<Role> roles = user.getRoles();
-            for (Role role : roles) {
-                roleCodes.add(role.getRoleCode());
-            }
+            Set<String> roleIds = new HashSet<>();
+            List<Role> roleList = user.getRoleList();
+            roleList.forEach(role -> roleIds.add(String.valueOf(role.getId())));
             //添加角色
-            authorizationInfo.addRoles(roleCodes);
+            authorizationInfo.addRoles(roleIds);
 
-            Set<String> stringPermissions = new HashSet<>();
-            List<Permission> permissions = user.getPermissions();
-            for (Permission permission : permissions) {
-                stringPermissions.add(permission.getPermissionCode());
-            }
+            Set<String> resourceIds = new HashSet<>();
+            List<Resource> resourceList = user.getResourceList();
+            resourceList.forEach(resource -> resourceIds.add(String.valueOf(resource.getId())));
             // 添加权限
-            authorizationInfo.addStringPermissions(stringPermissions);
+            authorizationInfo.addStringPermissions(resourceIds);
         }
 
         return authorizationInfo;

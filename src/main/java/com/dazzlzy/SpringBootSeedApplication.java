@@ -18,7 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @date 2018/5/19
  */
 @SpringBootApplication
-@MapperScan(basePackages = {"com.dazzlzy.springbootseed.dao"})
+@MapperScan(basePackages = {"com.dazzlzy.springbootseed.mapper"})
 @EnableCaching
 public class SpringBootSeedApplication {
 

@@ -1,13 +1,94 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dazzlzy.springbootseed.dao.user.RoleMapper">
-    <resultMap id="BaseResultMap" type="com.dazzlzy.springbootseed.model.user.Role">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
-        <result column="state_code" jdbcType="INTEGER" property="stateCode"/>
-        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
-        <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
-    </resultMap>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dazzlzy.springbootseed.mapper.user.RoleMapper" >
+  <resultMap id="roleResultMap" type="com.dazzlzy.springbootseed.model.user.Role" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="r_id" property="id" jdbcType="BIGINT" />
+    <result column="r_name" property="name" jdbcType="VARCHAR" />
+    <result column="r_seq" property="seq" jdbcType="TINYINT" />
+    <result column="r_description" property="description" jdbcType="VARCHAR" />
+    <result column="r_status" property="status" jdbcType="TINYINT" />
+    <result column="r_creator" property="creator" jdbcType="VARCHAR" />
+    <result column="r_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="r_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
+    <result column="r_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <association property="resourceList" javaType="com.dazzlzy.springbootseed.model.user.Resource"
+               resultMap="resourceBaseResultMap" >
+    </association>
+  </resultMap>
+
+  <resultMap id="resourceBaseResultMap" type="com.dazzlzy.springbootseed.model.user.Resource" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="rc_id" property="id" jdbcType="BIGINT" />
+    <result column="rc_name" property="name" jdbcType="VARCHAR" />
+    <result column="rc_url" property="url" jdbcType="VARCHAR" />
+    <result column="rc_description" property="description" jdbcType="VARCHAR" />
+    <result column="rc_icon" property="icon" jdbcType="VARCHAR" />
+    <result column="rc_pid" property="pid" jdbcType="BIGINT" />
+    <result column="rc_seq" property="seq" jdbcType="TINYINT" />
+    <result column="rc_resource_type" property="resourceType" jdbcType="TINYINT" />
+    <result column="rc_status" property="status" jdbcType="TINYINT" />
+    <result column="rc_creator" property="creator" jdbcType="VARCHAR" />
+    <result column="rc_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="rc_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
+    <result column="rc_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id = "role_column_sql">
+      r.name as r_name,
+      r.seq as seq,
+      r.description as r_description,
+      r.status as r_status,
+      r.creator as r_creator,
+      r.create_time as r_create_time,
+    r.last_updator as r_last_updator,
+    r.last_update_time as r_last_update_time
+  </sql>
+
+  <sql id="resource_column_sql">
+    rc.id as rc_id,
+    rc.name as rc_name,
+    rc.url as rc_url,
+    rc.description as rc_description,
+    rc.icon as rc_icon,
+    rc.pid as rc_pid,
+    rc.seq as rc_seq,
+    rc.resource_type as rc_resource_type,
+    rc.status as rc_status,
+    rc.creator as rc_creator,
+    rc.create_time as rc_create_time,
+    rc.last_updator as rc_last_updator,
+    rc.last_update_time as rc_last_update_time
+  </sql>
+    <select id="queryByIdOrName" resultMap="roleResultMap">
+        select
+            <include refid="role_column_sql"/>
+        from role r
+        <include refid="queryByIdOrName_where_sql"/>
+    </select>
+
+    <select id="queryByPage" resultMap="roleResultMap">
+        select
+            <include refid="role_column_sql"/> ,
+            <include refid="resource_column_sql"/>
+        from role r
+        left join role_resource rr on r.id = rr.role_id
+        left join resource rc on rr.resource_id = rc.id
+        <include refid="queryByIdOrName_where_sql"/>
+    </select>
+
+  <sql id="queryByIdOrName_where_sql">
+    <where>
+      <if test="id != null">
+        and r.id = #{id}
+      </if>
+      <if test="name != null">
+        and r.name = #{name}
+      </if>
+    </where>
+  </sql>
 </mapper>

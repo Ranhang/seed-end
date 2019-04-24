@@ -1,42 +1,46 @@
 package com.dazzlzy.springbootseed.model.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
-/**
- * 用户角色关系
- *
- * @author dazzlzy
- * @date 2018/5/19
- */
-@Data
-@Table(name = "sys_user_role")
+@Setter
+@Getter
+@ToString
+@Table(name = "user_role")
 public class UserRole {
     /**
-     * 用户角色关系ID
+     * 主键id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * 插入时间
-     */
-    @Column(name = "insert_time")
-    private Date insertTime;
-
-    /**
-     * 用户ID
+     * 用户id
      */
     @Column(name = "user_id")
     private Long userId;
 
     /**
-     * 角色ID
+     * 角色id
      */
     @Column(name = "role_id")
     private Long roleId;
+
+    /**
+     * 创建人
+     */
+    private String creator;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
 }

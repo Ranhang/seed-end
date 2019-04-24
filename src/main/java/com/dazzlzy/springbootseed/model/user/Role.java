@@ -1,26 +1,49 @@
 package com.dazzlzy.springbootseed.model.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
 
-/**
- * 角色
- *
- * @author dazzlzy
- * @date 2018/5/19
- */
-@Data
-@Table(name = "sys_role")
+@Setter
+@Getter
+@ToString
 public class Role {
     /**
-     * 角色ID
+     * 主键id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * 角色名
+     */
+    private String name;
+
+    /**
+     * 排序号
+     */
+    private Byte seq;
+
+    /**
+     * 简介
+     */
+    private String description;
+
+    /**
+     * 状态
+     */
+    private Byte status;
+
+    /**
+     * 创建人
+     */
+    private String creator;
 
     /**
      * 创建时间
@@ -29,38 +52,21 @@ public class Role {
     private Date createTime;
 
     /**
-     * 修改时间
+     * 上次更新人
      */
-    @Column(name = "modify_time")
-    private Date modifyTime;
+    @Column(name = "last_updator")
+    private String lastUpdator;
 
     /**
-     * 启用状态
+     * 上次更新时间
      */
-    @Column(name = "state_code")
-    private Integer stateCode;
+    @Column(name = "last_update_time")
+    private Date lastUpdateTime;
 
     /**
-     * 角色名
-     */
-    @Column(name = "role_name")
-    private String roleName;
-
-    /**
-     * 角色编码
-     */
-    @Column(name = "role_code")
-    private String roleCode;
-
-    /**
-     * 角色描述
-     */
-    private String description;
-
-    /**
-     * 角色拥有的权限
+     * 用用权限
      */
     @Transient
-    private List<Permission> permissions;
+    private List<Resource> resourceList;
 
 }

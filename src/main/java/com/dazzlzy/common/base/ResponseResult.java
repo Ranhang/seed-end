@@ -1,6 +1,6 @@
 package com.dazzlzy.common.base;
 
-import com.dazzlzy.common.enums.RESPONSERESULTENUM;
+import com.dazzlzy.common.enums.ResponseResultEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RESPONSERESULT<T> implements Serializable {
+public class ResponseResult<T> implements Serializable {
 
     private Integer code;
 
@@ -36,7 +36,7 @@ public class RESPONSERESULT<T> implements Serializable {
      * @return 是否为成功结果
      */
     public boolean isSuccess() {
-        return RESPONSERESULTENUM.SUCCESS.getCode() == this.code;
+        return ResponseResultEnum.SUCCESS.getCode() == this.code;
     }
 
 }

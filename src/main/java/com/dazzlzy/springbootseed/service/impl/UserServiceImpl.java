@@ -1,10 +1,9 @@
 package com.dazzlzy.springbootseed.service.impl;
 
 import com.dazzlzy.common.exception.BusinessException;
-import com.dazzlzy.common.utils.DateUtils;
 import com.dazzlzy.common.utils.PasswordUtil;
 import com.dazzlzy.common.utils.RandomUtil;
-import com.dazzlzy.springbootseed.dao.user.UserMapper;
+import com.dazzlzy.springbootseed.mapper.user.UserMapper;
 import com.dazzlzy.springbootseed.model.user.User;
 import com.dazzlzy.springbootseed.service.IUserService;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.util.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -29,11 +29,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
+//    @Autowired
     private final UserMapper userMapper;
 
     @Override
     public User queryByIdOrName(Long userId, String userName) {
-        return this.userMapper.selectUserByIdOrName(userId, userName);
+        return userMapper.queryByIdOrName(userId, userName);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void addUser(User user) throws ParseException {
-        String now = DateUtils.getCurrentDateStr(DateUtils.HOUR_PATTERN);
+        Date now = new Date();
         validateUser(user);
         // 随机盐
         String salt = RandomUtil.getSalt();
@@ -66,7 +67,7 @@ public class UserServiceImpl implements IUserService {
         String password = PasswordUtil.encrypt(user.getPassword(), salt);
         user.setPassword(password);
         user.setCreateTime(now);
-        user.setModifyTime(now);
+        user.setLastUpdateTime(now);
 
         log.info("新增用户user={}",user);
         userMapper.insert(user);
@@ -77,7 +78,7 @@ public class UserServiceImpl implements IUserService {
         if (user.getPage() != null && user.getRows() != null) {
             PageHelper.startPage(user.getPage(), user.getRows());
         }
-        return userMapper.selectAll();
+        return userMapper.queryByPage(user);
     }
     /**
      * 检查用户信息是否正确
@@ -88,7 +89,7 @@ public class UserServiceImpl implements IUserService {
         if (user == null) {
             throw new BusinessException("用户不存在");
         }
-        if (StringUtils.isBlank(user.getUserName())) {
+        if (StringUtils.isBlank(user.getLoginName())) {
             throw new BusinessException("用户名不能为空");
         }
         if (StringUtils.isBlank(user.getPassword())) {
