@@ -5,17 +5,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.beans.factory.annotation.Value;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Setter
 @Getter
 @ToString
-public class User extends BaseEntity {
+public class User{
+
+    @Id
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * 登陆名
@@ -31,6 +35,7 @@ public class User extends BaseEntity {
     /**
      * 密码
      */
+   @Value("123456")
     private String password;
 
     /**
@@ -62,11 +67,13 @@ public class User extends BaseEntity {
     /**
      * 状态
      */
+    @Value("0")
     private Byte status;
 
     /**
      * 创建人
      */
+    @Value("wangEr")
     private String creator;
 
     /**

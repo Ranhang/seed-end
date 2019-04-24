@@ -31,7 +31,7 @@ public class RoleServiceImpl implements IRoleService {
         validateRole(role);
         role.setCreateTime(now);
         role.setLastUpdateTime(now);
-        roleMapper.insert(role);
+        roleMapper.insertSelective(role);
     }
 
     @Override

@@ -6,6 +6,7 @@ import cn.chenyh.springbootseed.mapper.user.UserMapper;
 import cn.chenyh.springbootseed.service.IUserService;
 import cn.chenyh.common.exception.BusinessException;
 import cn.chenyh.springbootseed.model.user.User;
+import cn.chenyh.springbootseed.vo.user.UserTableVo;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,27 +58,35 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void addUser(User user) throws ParseException {
+//        User currentUser = SessionUtil.getCurrentUser();
+//        String userName = currentUser.getLoginName();
+        String userName = null;
+        if(StringUtils.isBlank(userName)){
+            userName = "lisi";
+        }
+        user.setCreator(userName);
+        user.setLastUpdator(userName);
         Date now = new Date();
         validateUser(user);
         // 随机盐
         String salt = RandomUtil.getSalt();
         user.setSalt(salt);
         // 密码密文
-        String password = PasswordUtil.encrypt(user.getPassword(), salt);
+        String password = PasswordUtil.encrypt("123456", salt);
         user.setPassword(password);
         user.setCreateTime(now);
         user.setLastUpdateTime(now);
 
         log.info("新增用户user={}",user);
-        userMapper.insert(user);
+        userMapper.insertSelective(user);
     }
 
     @Override
-    public List<User> queryByPage(User user){
-        if (user.getPage() != null && user.getRows() != null) {
-            PageHelper.startPage(user.getPage(), user.getRows());
+    public List<UserTableVo> queryByPage(UserTableVo userTableVo){
+        if (userTableVo.getPageNum() != null && userTableVo.getRows() != null) {
+            PageHelper.startPage(userTableVo.getPageNum(), userTableVo.getRows());
         }
-        return userMapper.queryByPage(user);
+        return userMapper.queryByPage(userTableVo);
     }
     /**
      * 检查用户信息是否正确
@@ -90,9 +99,6 @@ public class UserServiceImpl implements IUserService {
         }
         if (StringUtils.isBlank(user.getLoginName())) {
             throw new BusinessException("用户名不能为空");
-        }
-        if (StringUtils.isBlank(user.getPassword())) {
-            throw new BusinessException("用户密码不能为空");
         }
     }
 

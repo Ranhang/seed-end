@@ -4,6 +4,7 @@ import cn.chenyh.common.base.Response;
 import cn.chenyh.common.base.ResponseResult;
 import cn.chenyh.springbootseed.model.user.User;
 import cn.chenyh.springbootseed.service.IUserService;
+import cn.chenyh.springbootseed.vo.user.UserTableVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,9 +59,9 @@ public class UserController {
 
     @PostMapping(value = "/queryByPage")
     @ApiOperation("分页")
-    public ResponseResult queryByPage(@RequestBody User user) {
-        List<User> userList = userService.queryByPage(user);
-        PageInfo<User> pageInfo = new PageInfo<>(userList);
+    public ResponseResult queryByPage(@RequestBody UserTableVo userTableVo) {
+        List<UserTableVo> userList = userService.queryByPage(userTableVo);
+        PageInfo<UserTableVo> pageInfo = new PageInfo<>(userList);
         System.out.println("--------------------------------");
         return Response.success(pageInfo);
     }

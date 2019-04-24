@@ -1,10 +1,13 @@
 package cn.chenyh.common.base;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.nutz.json.JsonField;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Auther: cyh98
@@ -16,13 +19,10 @@ import javax.persistence.*;
 @ToString
 public class BaseEntity {
 
-    @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long key;
 
     @Transient
-    private Integer page = 1;
+    private Integer pageNum = 1;
 
     @Transient
     private Integer rows = 10;

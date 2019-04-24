@@ -1,6 +1,7 @@
 package cn.chenyh.springbootseed.service;
 
 import cn.chenyh.springbootseed.model.user.User;
+import cn.chenyh.springbootseed.vo.user.UserTableVo;
 
 import java.text.ParseException;
 import java.util.List;
@@ -53,9 +54,9 @@ public interface IUserService {
     /**
      * 带条件分页查询
      *
-     * @param user 用户信息
+     * @param userTableVo 用户信息
      * @return 用户集合
      */
-    List<User> queryByPage(User user);
+    List<UserTableVo> queryByPage(UserTableVo userTableVo);
 
 }
