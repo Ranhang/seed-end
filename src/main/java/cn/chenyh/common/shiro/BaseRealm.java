@@ -2,7 +2,6 @@ package cn.chenyh.common.shiro;
 
 import cn.chenyh.common.utils.SessionUtil;
 import cn.chenyh.common.enums.SessionEnum;
-import cn.chenyh.springbootseed.model.user.Resource;
 import cn.chenyh.springbootseed.model.user.Role;
 import cn.chenyh.springbootseed.model.user.User;
 import cn.chenyh.springbootseed.service.IShiroService;
@@ -13,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -70,13 +70,21 @@ public class BaseRealm extends AuthorizingRealm {
         if (user != null) {
             Set<String> roleIds = new HashSet<>();
             List<Role> roleList = user.getRoleList();
-            roleList.forEach(role -> roleIds.add(String.valueOf(role.getId())));
-            //添加角色
-            authorizationInfo.addRoles(roleIds);
 
             Set<String> resourceIds = new HashSet<>();
-            List<Resource> resourceList = user.getResourceList();
-            resourceList.forEach(resource -> resourceIds.add(String.valueOf(resource.getId())));
+            if(!CollectionUtils.isEmpty(roleList)){
+                roleList.forEach(role -> {
+                    roleIds.add(String.valueOf(role.getId()));
+                    if(!CollectionUtils.isEmpty(role.getResourceList())){
+                        role.getResourceList().forEach(resource ->
+                            resourceIds.add(String.valueOf(resource.getId()))
+                        );
+                    }
+                });
+            }
+
+            //添加角色
+            authorizationInfo.addRoles(roleIds);
             // 添加权限
             authorizationInfo.addStringPermissions(resourceIds);
         }

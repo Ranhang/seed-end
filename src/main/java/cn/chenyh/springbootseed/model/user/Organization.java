@@ -1,8 +1,10 @@
 package cn.chenyh.springbootseed.model.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -60,7 +62,8 @@ public class Organization {
     /**
      * 创建时间
      */
-    @Column(name = "create_time")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -72,6 +75,7 @@ public class Organization {
     /**
      * 上次更新时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
 }

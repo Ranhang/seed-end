@@ -1,9 +1,11 @@
 package cn.chenyh.springbootseed.model.user;
 
 import cn.chenyh.common.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Transient;
@@ -70,6 +72,7 @@ public class User extends BaseEntity {
     /**
      * 创建时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_time")
     private Date createTime;
 
@@ -82,6 +85,7 @@ public class User extends BaseEntity {
     /**
      * 上次更新时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
 
@@ -90,10 +94,4 @@ public class User extends BaseEntity {
      */
     @Transient
     private List<Role> roleList;
-
-    /**
-     * 资源信息
-     */
-    @Transient
-    private List<Resource> resourceList;
 }
