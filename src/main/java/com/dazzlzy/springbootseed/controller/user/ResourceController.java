@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 
-@Slf4j
-@Api("资源")
-@RestController
-@RequestMapping(value = "/resource")
-@RequiredArgsConstructor
-public class ResourceController {
-}
+//@Slf4j
+//@Api("资源")
+//@RestController
+//@RequestMapping(value = "/resource")
+//@RequiredArgsConstructor
+//public class ResourceController {
+//}

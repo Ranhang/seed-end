@@ -6,14 +6,11 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import java.util.Date;
-import java.util.List;
-
 @Setter
 @Getter
 @ToString
-public class Role {
+public class Organization {
     /**
      * 主键id
      */
@@ -21,19 +18,34 @@ public class Role {
     private Long id;
 
     /**
-     * 角色名
+     * 组织名
      */
     private String name;
 
     /**
-     * 排序号
+     * 地址
      */
-    private Byte seq;
+    private String address;
 
     /**
-     * 简介
+     * 编号
      */
-    private String description;
+    private String code;
+
+    /**
+     * 图标
+     */
+    private String icon;
+
+    /**
+     * 父级主键
+     */
+    private Long pid;
+
+    /**
+     * 排序
+     */
+    private Byte seq;
 
     /**
      * 状态
@@ -62,11 +74,4 @@ public class Role {
      */
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
-
-    /**
-     * 用用权限
-     */
-    @Transient
-    private List<Resource> resourceList;
-
 }

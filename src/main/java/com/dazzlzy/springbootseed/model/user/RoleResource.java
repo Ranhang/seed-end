@@ -8,12 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-
 @Setter
 @Getter
 @ToString
-@Table(name = "user_role")
-public class UserRole {
+@Table(name = "role_resource")
+public class RoleResource {
     /**
      * 主键id
      */
@@ -21,16 +20,16 @@ public class UserRole {
     private Long id;
 
     /**
-     * 用户id
-     */
-    @Column(name = "user_id")
-    private Long userId;
-
-    /**
      * 角色id
      */
     @Column(name = "role_id")
     private Long roleId;
+
+    /**
+     * 资源id
+     */
+    @Column(name = "resource_id")
+    private Long resourceId;
 
     /**
      * 创建人
@@ -42,5 +41,4 @@ public class UserRole {
      */
     @Column(name = "create_time")
     private Date createTime;
-
 }

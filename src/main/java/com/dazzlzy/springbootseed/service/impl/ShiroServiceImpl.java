@@ -5,6 +5,7 @@ import com.dazzlzy.common.utils.PasswordUtil;
 import com.dazzlzy.springbootseed.model.user.User;
 import com.dazzlzy.springbootseed.service.IShiroService;
 import com.dazzlzy.springbootseed.service.IUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -17,7 +18,8 @@ import org.springframework.stereotype.Service;
  * @author zhaozhenyao
  * @date 2018/5/10
  */
-@Service("shiroServiceImpl")
+@Slf4j
+@Service
 public class ShiroServiceImpl implements IShiroService {
 
     private final IUserService userService;
@@ -48,7 +50,7 @@ public class ShiroServiceImpl implements IShiroService {
             // 用户不存在
             throw new UnknownAccountException();
         }
-        if (BooleanEnum.NO.getValue() == user.getStateCode()) {
+        if (BooleanEnum.NO.getValue() == user.getStatus()) {
             // 账户不可用
             throw new LockedAccountException();
         }

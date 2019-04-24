@@ -1,7 +1,7 @@
 package com.dazzlzy.springbootseed.controller.user;
 
-import com.dazzlzy.common.base.RESPONSE;
-import com.dazzlzy.common.base.RESPONSERESULT;
+import com.dazzlzy.common.base.Response;
+import com.dazzlzy.common.base.ResponseResult;
 import com.dazzlzy.springbootseed.model.user.User;
 import com.dazzlzy.springbootseed.service.IUserService;
 import com.github.pagehelper.PageInfo;
@@ -29,33 +29,38 @@ public class UserController {
     private final IUserService userService;
 
     @PostMapping(value = "/add")
-    public RESPONSERESULT add(@RequestBody User user) throws ParseException {
+//    @ApiOperation("新增")
+    public ResponseResult add(@RequestBody User user) throws ParseException {
         userService.addUser(user);
-        return RESPONSE.success();
+        return Response.success();
     }
 
     @DeleteMapping(value = "/delete")
-    public RESPONSERESULT delete(@RequestBody List<Integer> ids) {
+//    @ApiOperation("删除")
+    public ResponseResult delete(@RequestBody List<Integer> ids) {
         userService.delete(ids);
-        return RESPONSE.success();
+        return Response.success();
     }
 
     @PutMapping(value = "/update")
-    public RESPONSERESULT update(@RequestBody User user) {
+//    @ApiOperation("更新")
+    public ResponseResult update(@RequestBody User user) {
         userService.update(user);
-        return RESPONSE.success();
+        return Response.success();
     }
 
     @GetMapping(value = "/query")
-    public RESPONSERESULT queryByIdOrName(Long id,String name) {
+    public ResponseResult queryByIdOrName(Long id, String name) {
         User user = userService.queryByIdOrName(id, name);
-        return RESPONSE.success(user);
+        return Response.success(user);
     }
 
     @PostMapping(value = "/queryByPage")
-    public RESPONSERESULT queryByPage(@RequestBody User user) {
+//    @ApiOperation("分页")
+    public ResponseResult queryByPage(@RequestBody User user) {
         List<User> userList = userService.queryByPage(user);
         PageInfo<User> pageInfo = new PageInfo<>(userList);
-        return RESPONSE.success(pageInfo);
+        System.out.println("--------------------------------");
+        return Response.success(pageInfo);
     }
 }

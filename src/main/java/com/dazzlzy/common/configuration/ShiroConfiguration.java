@@ -123,6 +123,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/login.jsp", "anon");
         filterChainDefinitionMap.put("/test/checkAuthc", "authc");
         filterChainDefinitionMap.put("/test/**", "anon");
+        filterChainDefinitionMap.put("/user/**", "anon");
         // druid过滤
         filterChainDefinitionMap.put("/druid", "anon");
         // swagger过滤
@@ -132,7 +133,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         // 其他需要授权
-        filterChainDefinitionMap.put("/*", "authc");
+        //filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;

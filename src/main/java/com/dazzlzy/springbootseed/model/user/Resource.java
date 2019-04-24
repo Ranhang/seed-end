@@ -6,34 +6,52 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import java.util.Date;
-import java.util.List;
-
 @Setter
 @Getter
 @ToString
-public class Role {
+public class Resource {
     /**
-     * 主键id
+     * 主键
      */
     @Id
     private Long id;
 
     /**
-     * 角色名
+     * 资源名称
      */
     private String name;
 
     /**
-     * 排序号
+     * 资源路径
+     */
+    private String url;
+
+    /**
+     * 资源介绍
+     */
+    private String description;
+
+    /**
+     * 资源图标
+     */
+    private String icon;
+
+    /**
+     * 父级资源id
+     */
+    private Long pid;
+
+    /**
+     * 排序
      */
     private Byte seq;
 
     /**
-     * 简介
+     * 资源类别
      */
-    private String description;
+    @Column(name = "resource_type")
+    private Byte resourceType;
 
     /**
      * 状态
@@ -62,11 +80,5 @@ public class Role {
      */
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
-
-    /**
-     * 用用权限
-     */
-    @Transient
-    private List<Resource> resourceList;
 
 }
