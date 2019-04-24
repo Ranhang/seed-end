@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dazzlzy.springbootseed.mapper.user.RoleMapper" >
-  <resultMap id="roleResultMap" type="com.dazzlzy.springbootseed.model.user.Role" >
+<mapper namespace="cn.chenyh.springbootseed.mapper.user.RoleMapper" >
+  <resultMap id="roleResultMap" type="cn.chenyh.springbootseed.model.user.Role" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -14,12 +14,12 @@
     <result column="r_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="r_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
     <result column="r_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <association property="resourceList" javaType="com.dazzlzy.springbootseed.model.user.Resource"
+    <association property="resourceList" javaType="cn.chenyh.springbootseed.model.user.Resource"
                resultMap="resourceBaseResultMap" >
     </association>
   </resultMap>
 
-  <resultMap id="resourceBaseResultMap" type="com.dazzlzy.springbootseed.model.user.Resource" >
+  <resultMap id="resourceBaseResultMap" type="cn.chenyh.springbootseed.model.user.Resource" >
     <!--
       WARNING - @mbg.generated
     -->

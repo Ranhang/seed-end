@@ -37,13 +37,13 @@ project:
 ###############################################################################
 ## mybatis
 mybatis:
-  type-aliases-package: com.dazzlzy.springbootseed.model
-  type-handlers-package: com.dazzlzy.springbootseed.mapper
+  type-aliases-package: cn.chenyh.springbootseed.model
+  type-handlers-package: cn.chenyh.springbootseed.mapper
   mapper-locations: classpath*:mapper/**/*.xml
 ###############################################################################
 ## mapper
 mapper:
-  mappers: com.dazzlzy.common.base.BaseMapper
+  mappers: cn.chenyh.common.base.BaseMapper
   not-empty: false
   identity: Mysql
 ###############################################################################

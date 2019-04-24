@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dazzlzy.springbootseed.mapper.user.UserMapper" >
-  <resultMap id="UserBaseResultMap" type="com.dazzlzy.springbootseed.model.user.User" >
+<mapper namespace="cn.chenyh.springbootseed.mapper.user.UserMapper" >
+  <resultMap id="UserBaseResultMap" type="cn.chenyh.springbootseed.model.user.User" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -19,11 +19,11 @@
     <result column="u_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="u_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
     <result column="u_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <association property="roleList" javaType="com.dazzlzy.springbootseed.model.user.Role"
+    <association property="roleList" javaType="cn.chenyh.springbootseed.model.user.Role"
                  resultMap="RoleBaseResultMap" ></association>
   </resultMap>
 
-  <resultMap id="ResourceBaseResultMap" type="com.dazzlzy.springbootseed.model.user.Resource" >
+  <resultMap id="ResourceBaseResultMap" type="cn.chenyh.springbootseed.model.user.Resource" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -41,7 +41,7 @@
     <result column="rc_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
     <result column="rc_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="RoleBaseResultMap" type="com.dazzlzy.springbootseed.model.user.Role" >
+  <resultMap id="RoleBaseResultMap" type="cn.chenyh.springbootseed.model.user.Role" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -54,7 +54,7 @@
     <result column="r_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="r_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
     <result column="r_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <association property="resourceList" javaType="com.dazzlzy.springbootseed.model.user.Resource"
+    <association property="resourceList" javaType="cn.chenyh.springbootseed.model.user.Resource"
                  resultMap="ResourceBaseResultMap" ></association>
   </resultMap>
 

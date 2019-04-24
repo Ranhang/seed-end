@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.dazzlzy</groupId>
-    <artifactId>spring-boot-seed</artifactId>
+    <groupId>com.chenyh</groupId>
+    <artifactId>gend</artifactId>
     <version>0.2.1</version>
     <packaging>jar</packaging>
 
-    <name>spring-boot-seed</name>
-    <description>SpringBootSeed是一个SpringBoot的骨架项目，该项目集成SpringBoot2与众多常用框架，供学习使用</description>
+    <name>gend</name>
+    <description>gend是一个SpringBoot的骨架项目，该项目集成SpringBoot2与众多常用框架，供学习使用</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,11 +19,9 @@
     </parent>
 
     <properties>
-        <project.author.name>dazzlzy</project.author.name>
+        <project.author.name>chenyh</project.author.name>
         <project.author.url></project.author.url>
-        <project.author.email>dazzlzy@gmail.com</project.author.email>
-<!--        <project.package.core>com.dazzlzy.common</project.package.core>-->
-<!--        <project.package.service>com.dazzlzy.springbootseed</project.package.service>-->
+        <project.author.email>cyh9886@163.com</project.author.email>
         <project.package.core>cn.chenyh</project.package.core>
         <project.package.service>cn.chenyh.service</project.package.service>
 
@@ -34,8 +32,6 @@
         <starter.mybatis.spring.version>1.3.2</starter.mybatis.spring.version>
         <starter.druid.version>1.1.9</starter.druid.version>
         <starter.mybatis.mapper.version>2.0.2</starter.mybatis.mapper.version>
-<!--        <starter.mybatis.pagehelper.version>1.2.4</starter.mybatis.pagehelper.version>-->
-
         <commons.lang3.version>3.5</commons.lang3.version>
         <commons.collections.version>3.2.2</commons.collections.version>
         <commons.net.version>3.4</commons.net.version>
@@ -140,12 +136,6 @@
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>${starter.mybatis.mapper.version}</version>
         </dependency>
-<!--        &lt;!&ndash; pagehelper &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.github.pagehelper</groupId>-->
-<!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-<!--            <version>${starter.mybatis.pagehelper.version}</version>-->
-<!--        </dependency>-->
 
         <!-- shiro -->
         <dependency>
