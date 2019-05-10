@@ -19,7 +19,9 @@ public enum ResponseResultEnum {
     SUCCESS(200, "成功"),
     FAIL(400, "失败"),
     NOT_FOUND(404, "不存在"),
-    SERVER_ERROR(500, "服务异常");
+    SERVER_ERROR(500, "服务异常"),
+    LOGINNAME_NULL(501, "用户名不存在"),
+    PASSWORD_NULL(502, "密码不存在");
 
     private int code;
 

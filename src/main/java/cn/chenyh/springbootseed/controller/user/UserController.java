@@ -2,6 +2,7 @@ package cn.chenyh.springbootseed.controller.user;
 
 import cn.chenyh.common.base.Response;
 import cn.chenyh.common.base.ResponseResult;
+import cn.chenyh.common.utils.StringUtil;
 import cn.chenyh.springbootseed.model.user.User;
 import cn.chenyh.springbootseed.service.IUserService;
 import cn.chenyh.springbootseed.vo.user.UserTableVo;
@@ -10,6 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -62,7 +68,17 @@ public class UserController {
     public ResponseResult queryByPage(@RequestBody UserTableVo userTableVo) {
         List<UserTableVo> userList = userService.queryByPage(userTableVo);
         PageInfo<UserTableVo> pageInfo = new PageInfo<>(userList);
-        System.out.println("--------------------------------");
         return Response.success(pageInfo);
     }
+
+    @PostMapping(value = "/login")
+    @ApiOperation("分页")
+    public ResponseResult login(String loginName, String password) {
+        //添加用户认证信息
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginName,  password);
+        //进行验证，这里可以捕获异常，然后返回对应信息
+        subject.login(usernamePasswordToken);
+        return Response.success();
+        }
 }

@@ -29,7 +29,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-//    @Autowired
     private final UserMapper userMapper;
 
     @Override

@@ -5,6 +5,7 @@ import cn.chenyh.common.utils.PasswordUtil;
 import cn.chenyh.springbootseed.service.IShiroService;
 import cn.chenyh.springbootseed.service.IUserService;
 import cn.chenyh.springbootseed.model.user.User;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -20,14 +21,11 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ShiroServiceImpl implements IShiroService {
 
     private final IUserService userService;
 
-    @Autowired
-    public ShiroServiceImpl(IUserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public User login(Long userId, String userName, String password) {

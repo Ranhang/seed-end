@@ -2,10 +2,12 @@ package cn.chenyh.common.shiro;
 
 import cn.chenyh.common.utils.SessionUtil;
 import cn.chenyh.common.enums.SessionEnum;
+import cn.chenyh.common.utils.StringUtil;
 import cn.chenyh.springbootseed.model.user.Role;
 import cn.chenyh.springbootseed.model.user.User;
 import cn.chenyh.springbootseed.service.IShiroService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -112,21 +114,9 @@ public class BaseRealm extends AuthorizingRealm {
             user = shiroService.login(null, token.getUsername(), String.valueOf(token.getPassword()));
             if (user != null) {
                 authenticationInfo = new SimpleAuthenticationInfo(token.getUsername(), token.getPassword(), this.getName());
-            }
-        } else if (authenticationToken instanceof IdPasswordToken) {
-            log.info("Use IdPasswordToken for authentication");
-            //ID密码校验
-            IdPasswordToken token = (IdPasswordToken) authenticationToken;
-            user = shiroService.login(Long.valueOf(token.getId()), null, String.valueOf(token.getPassword()));
-            if (user != null) {
-                authenticationInfo = new SimpleAuthenticationInfo(token.getId(), token.getPassword(), this.getName());
+                SessionUtil.setAttribute(user.getLoginName(), user);
             }
         }
-
-        if (user != null) {
-            SessionUtil.setAttribute(SessionEnum.CURRENT_USER, user);
-        }
-
         return authenticationInfo;
     }
 
