@@ -49,7 +49,7 @@ public interface IUserService {
      *
      * @param user 用户信息
      */
-    void addUser(User user) throws ParseException;
+    void add(User user) throws ParseException;
 
     /**
      * 带条件分页查询

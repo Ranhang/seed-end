@@ -2,9 +2,9 @@ package cn.chenyh.springbootseed.controller.user;
 
 import cn.chenyh.common.base.Response;
 import cn.chenyh.common.base.ResponseResult;
-import cn.chenyh.springbootseed.model.user.Resource;
+import cn.chenyh.springbootseed.model.user.Organization;
 import cn.chenyh.springbootseed.model.user.User;
-import cn.chenyh.springbootseed.service.IResourceService;
+import cn.chenyh.springbootseed.service.IOrganizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -16,41 +16,40 @@ import java.util.List;
 
 /**
  * @Auther: cyh98
- * @Date: 2019/4/17 18:25
+ * @Date: 2019/6/12 20:01
  * @Description:
  */
 
 @Slf4j
-@Api("资源")
+@Api("组织")
 @RestController
-@RequestMapping(value = "/resource")
+@RequestMapping(value = "organization")
 @RequiredArgsConstructor
-public class ResourceController {
+public class OrganizationController {
 
-
-    private final IResourceService resourceService;
+    private final IOrganizationService organizationService;
 
     @PostMapping(value = "/add")
     @ApiOperation("新增")
-    public ResponseResult add(@RequestBody Resource resource) throws ParseException {
-        return Response.success(resourceService.add(resource));
+    public ResponseResult add(@RequestBody Organization organization) throws ParseException {
+        return Response.success(organizationService.add(organization));
     }
 
     @DeleteMapping(value = "/delete")
     @ApiOperation("删除")
     public ResponseResult delete(@RequestBody List<Integer> ids) {
-        return Response.success(resourceService.delete(ids));
+        return Response.success(organizationService.delete(ids));
     }
 
     @PutMapping(value = "/update")
     @ApiOperation("更新")
-    public ResponseResult update(@RequestBody Resource resourc) {
-        return Response.success(resourceService.update(resourc));
+    public ResponseResult update(@RequestBody Organization organization) {
+        return Response.success(organizationService.update(organization));
     }
 
     @GetMapping(value = "/query")
     public ResponseResult queryByIdOrName(Long id, String name) {
-        Resource resource = resourceService.queryByIdOrName(id, name);
-        return Response.success(resource);
+        List<Organization> organizationList = organizationService.queryByIdOrName(id, name);
+        return Response.success(organizationList);
     }
 }

@@ -56,9 +56,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void addUser(User user) throws ParseException {
-//        User currentUser = SessionUtil.getCurrentUser();
-//        String userName = currentUser.getLoginName();
+    public void add(User user) throws ParseException {
         String userName = null;
         if(StringUtils.isBlank(userName)){
             userName = "lisi";

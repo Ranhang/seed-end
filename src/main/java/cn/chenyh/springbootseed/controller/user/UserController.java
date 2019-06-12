@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping(value = "/add")
     @ApiOperation("新增")
     public ResponseResult add(@RequestBody User user) throws ParseException {
-        userService.addUser(user);
+        userService.add(user);
         return Response.success();
     }
 
