@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 

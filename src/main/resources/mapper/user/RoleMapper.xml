@@ -81,6 +81,17 @@
         <include refid="queryByIdOrName_where_sql"/>
     </select>
 
+    <select id="queryAll" resultMap="roleResultMap">
+        SELECT
+        <include refid="role_column_sql"/> ,
+        <include refid="resource_column_sql"/>
+        FROM role r
+        LEFT JOIN role_resource rr on r.id = rr.role_id
+        LEFT JOIN resource rc on rr.resource_id = rc.id
+        <include refid="queryByIdOrName_where_sql"/>
+    </select>
+
+
   <sql id="queryByIdOrName_where_sql">
     <where>
       <if test="id != null">

@@ -1,13 +1,12 @@
 package cn.chenyh.common.shiro;
 
-import cn.chenyh.common.utils.SessionUtil;
-import cn.chenyh.common.enums.SessionEnum;
-import cn.chenyh.common.utils.StringUtil;
+import cn.chenyh.common.utils.RedisTemplateUtil;
 import cn.chenyh.springbootseed.model.user.Role;
 import cn.chenyh.springbootseed.model.user.User;
 import cn.chenyh.springbootseed.service.IShiroService;
+import cn.chenyh.springbootseed.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,7 +15,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,13 +30,20 @@ import java.util.Set;
  * @date 2018/5/26
  */
 @Slf4j
+@RequiredArgsConstructor
 public class BaseRealm extends AuthorizingRealm {
 
     /**
      * 由于在ShiroConfiguration中使用了new BaseRealm()无参构造器，无法注入IShiroService，本处使用成员属性上@Autowired
      */
     @Autowired
-    private IShiroService shiroService;
+    private  IShiroService shiroService;
+
+    @Autowired
+    private RedisTemplateUtil redisTemplateUtil;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 查询权限，授权
@@ -68,7 +73,8 @@ public class BaseRealm extends AuthorizingRealm {
 
         // 简单授权信息
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        User user = SessionUtil.getCurrentUser();
+        String username = (String) principalCollection.getPrimaryPrincipal();
+        User user =  userService.queryByIdOrName(null, username);
         if (user != null) {
             Set<String> roleIds = new HashSet<>();
             List<Role> roleList = user.getRoleList();
@@ -105,16 +111,14 @@ public class BaseRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.info("BaseRealm.doGetAuthenticationInfo() shiro认证");
         AuthenticationInfo authenticationInfo = null;
-        User user = null;
-
         if (authenticationToken instanceof UsernamePasswordToken) {
             log.info("Use UsernamePasswordToken for authentication");
             //用户密码校验
             UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-            user = shiroService.login(null, token.getUsername(), String.valueOf(token.getPassword()));
+            User user = shiroService.login(token);
             if (user != null) {
                 authenticationInfo = new SimpleAuthenticationInfo(token.getUsername(), token.getPassword(), this.getName());
-                SessionUtil.setAttribute(user.getLoginName(), user);
+                redisTemplateUtil.set(user.getLoginName(), user);
             }
         }
         return authenticationInfo;

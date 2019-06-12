@@ -48,6 +48,7 @@
         <log4j.version>2.10.0</log4j.version>
         <swagger.version>2.8.0</swagger.version>
         <pagehelper.starter.version>1.2.5</pagehelper.starter.version>
+        <fastjson.version>1.2.58</fastjson.version>
 
         <!-- MyBatis Generator -->
         <!-- Java接口和实体类 -->
@@ -86,15 +87,16 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>${redis.version}</version>
         </dependency>
 
         <!--pagehelper-->
@@ -247,6 +249,13 @@
             <version>${commons.logging.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
         <!--tools Jar-->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -272,6 +281,21 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-api</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>1.0.8</version>
         </dependency>
 
     </dependencies>

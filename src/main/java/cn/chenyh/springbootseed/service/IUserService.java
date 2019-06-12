@@ -27,7 +27,7 @@ public interface IUserService {
      * 更新用户
      * @param user 更新信息
      */
-    void update(User user);
+    int update(User user);
 
 
     /**

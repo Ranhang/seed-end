@@ -11,4 +11,6 @@ public interface RoleMapper extends BaseMapper<Role> {
     Role queryByIdOrName(Long id, String name);
 
     List<Role> queryByPage(Role role);
+
+    List<Role> queryAll(Role role);
 }

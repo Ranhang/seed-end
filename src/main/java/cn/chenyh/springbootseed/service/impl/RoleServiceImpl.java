@@ -56,6 +56,11 @@ public class RoleServiceImpl implements IRoleService {
         return roleMapper.queryByPage(role);
     }
 
+    @Override
+    public List<Role> queryAll(Role role) {
+        return roleMapper.queryAll(role);
+    }
+
     /**
      * 校验Role
      *

@@ -123,7 +123,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/login.jsp", "anon");
         filterChainDefinitionMap.put("/test/checkAuthc", "authc");
         filterChainDefinitionMap.put("/test/**", "anon");
-        filterChainDefinitionMap.put("/user/**", "anon");
+        filterChainDefinitionMap.put("/user/login", "anon");
         // druid过滤
         filterChainDefinitionMap.put("/druid", "anon");
         // swagger过滤

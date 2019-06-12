@@ -37,8 +37,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void update(User user){
-        userMapper.updateByPrimaryKey(user);
+    public int update(User user){
+        return userMapper.updateByPrimaryKey(user);
     }
 
     @Override

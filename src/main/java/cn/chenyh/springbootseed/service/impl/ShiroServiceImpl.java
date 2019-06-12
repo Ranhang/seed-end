@@ -1,7 +1,10 @@
 package cn.chenyh.springbootseed.service.impl;
 
 import cn.chenyh.common.enums.BooleanEnum;
+import cn.chenyh.common.enums.LoginNameEnum;
 import cn.chenyh.common.utils.PasswordUtil;
+import cn.chenyh.springbootseed.model.user.Role;
+import cn.chenyh.springbootseed.service.IRoleService;
 import cn.chenyh.springbootseed.service.IShiroService;
 import cn.chenyh.springbootseed.service.IUserService;
 import cn.chenyh.springbootseed.model.user.User;
@@ -10,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Shiro认证Service实现
@@ -26,10 +32,19 @@ public class ShiroServiceImpl implements IShiroService {
 
     private final IUserService userService;
 
+    private final IRoleService roleService;
+
 
     @Override
-    public User login(Long userId, String userName, String password) {
+    public User login(UsernamePasswordToken token) {
+        Long userId = null;
+        String userName=token.getUsername();
+        String password = String.valueOf(token.getPassword());
         User user = userService.queryByIdOrName(userId, userName);
+        if(LoginNameEnum.ADMIN.getMessage().equals(user.getLoginName())){
+            List<Role> roleList = roleService.queryAll(null);
+            user.setRoleList(roleList);
+        }
         //校验用户密码
         this.validateUserPassword(user, password);
         //清除用户密码

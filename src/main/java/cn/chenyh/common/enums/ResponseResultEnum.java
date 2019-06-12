@@ -21,7 +21,8 @@ public enum ResponseResultEnum {
     NOT_FOUND(404, "不存在"),
     SERVER_ERROR(500, "服务异常"),
     LOGINNAME_NULL(501, "用户名不存在"),
-    PASSWORD_NULL(502, "密码不存在");
+    PASSWORD_NULL(502, "密码不存在"),
+    NOT_AUTHORIZEDEXCEPTION(401, "没有权限");
 
     private int code;
 
@@ -29,6 +30,7 @@ public enum ResponseResultEnum {
 
     ResponseResultEnum(int code, String message) {
         this.code = code;
+        this.message =message;
     }
 
 }

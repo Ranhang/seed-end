@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = LockedAccountException.class)
     public ResponseResult exception(HttpServletRequest request, LockedAccountException exception) {
-        return  Response.failure(ResponseResultEnum.LOGINNAME_NULL);
+        return  Response.failure(ResponseResultEnum.LOGINNAME_NULL.getMessage());
     }
 
     /**
