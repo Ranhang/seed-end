@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.chenyh.springbootseed.mapper.user.UserMapper" >
+<mapper namespace="cn.chenxun.system.mapper.user.UserMapper" >
 
 
 
-  <resultMap id="UserBaseResultMap" type="cn.chenyh.springbootseed.model.user.User" >
+  <resultMap id="UserBaseResultMap" type="cn.chenxun.system.model.user.User" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -22,11 +22,20 @@
     <result column="u_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="u_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
     <result column="u_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <association property="roleList" javaType="cn.chenyh.springbootseed.model.user.Role"
-                 resultMap="RoleBaseResultMap" ></association>
+    <collection property="roleList" ofType="cn.chenxun.system.model.user.Role">
+      <id column="r_id" property="id" jdbcType="BIGINT" />
+      <result column="r_name" property="name" jdbcType="VARCHAR" />
+      <result column="r_seq" property="seq" jdbcType="TINYINT" />
+      <result column="r_description" property="description" jdbcType="VARCHAR" />
+      <result column="r_status" property="status" jdbcType="TINYINT" />
+      <result column="r_creator" property="creator" jdbcType="VARCHAR" />
+      <result column="r_create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="r_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
+      <result column="r_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    </collection>
   </resultMap>
 
-  <resultMap id="UserTableResultMap" type="cn.chenyh.springbootseed.vo.user.UserTableVo" >
+  <resultMap id="UserTableResultMap" type="cn.chenxun.system.vo.user.UserTableVo" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -45,43 +54,15 @@
     <result column="u_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="u_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
     <result column="u_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <association property="roleList" javaType="cn.chenyh.springbootseed.model.user.Role"
+    <association property="roleList" javaType="cn.chenxun.system.model.user.Role"
                  resultMap="RoleBaseResultMap" ></association>
   </resultMap>
 
-  <resultMap id="ResourceBaseResultMap" type="cn.chenyh.springbootseed.model.user.Resource" >
+  <resultMap id="RoleBaseResultMap" type="cn.chenxun.system.model.user.Role" >
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="rc_id" property="id" jdbcType="BIGINT" />
-    <result column="rc_name" property="name" jdbcType="VARCHAR" />
-    <result column="rc_url" property="url" jdbcType="VARCHAR" />
-    <result column="rc_description" property="description" jdbcType="VARCHAR" />
-    <result column="rc_icon" property="icon" jdbcType="VARCHAR" />
-    <result column="rc_pid" property="pid" jdbcType="BIGINT" />
-    <result column="rc_seq" property="seq" jdbcType="TINYINT" />
-    <result column="rc_resource_type" property="resourceType" jdbcType="TINYINT" />
-    <result column="rc_status" property="status" jdbcType="TINYINT" />
-    <result column="rc_creator" property="creator" jdbcType="VARCHAR" />
-    <result column="rc_create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="rc_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
-    <result column="rc_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="RoleBaseResultMap" type="cn.chenyh.springbootseed.model.user.Role" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="r_id" property="id" jdbcType="BIGINT" />
-    <result column="r_name" property="name" jdbcType="VARCHAR" />
-    <result column="r_seq" property="seq" jdbcType="TINYINT" />
-    <result column="r_description" property="description" jdbcType="VARCHAR" />
-    <result column="r_status" property="status" jdbcType="TINYINT" />
-    <result column="r_creator" property="creator" jdbcType="VARCHAR" />
-    <result column="r_create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="r_last_updator" property="lastUpdator" jdbcType="VARCHAR" />
-    <result column="r_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <association property="resourceList" javaType="cn.chenyh.springbootseed.model.user.Resource"
-                 resultMap="ResourceBaseResultMap" ></association>
+
   </resultMap>
 
   <sql id="user_column_sql">
@@ -100,23 +81,6 @@
     u.last_updator as u_last_updator,
     u.last_update_time as u_last_update_time
   </sql>
-
-  <sql id="resource_column_sql">
-    rc.id as rc_id,
-    rc.name as rc_name,
-    rc.url as rc_url,
-    rc.description as rc_description,
-    rc.icon as rc_icon,
-    rc.pid as rc_pid,
-    rc.seq as rc_seq,
-    rc.resource_type as rc_resource_type,
-    rc.status as rc_status,
-    rc.creator as rc_creator,
-    rc.create_time as rc_create_time,
-    rc.last_updator as rc_last_updator,
-    rc.last_update_time as rc_last_update_time
-  </sql>
-
   <sql id="role_column_sql">
     r.id as r_id,
     r.name as r_name,
@@ -142,8 +106,8 @@
 
   <sql id="queryByIdOrName_where_sql">
     <where>
-      <if test="id != null">
-        and u.id = #{id}
+      <if test="name != null">
+        and u.name = #{name}
       </if>
       <if test="loginName != null">
         and u.login_name = #{loginName}
@@ -160,21 +124,21 @@
 
   <select id="queryByIdOrName" resultMap="UserBaseResultMap">
     SELECT
-    <include refid="user_column_sql"/>
+    <include refid="user_column_sql"/>,
+    <include refid="role_column_sql"/>
     FROM user u
+    LEFT JOIN user_role ur on u.id = ur.user_id
+    LEFT JOIN role r on ur.role_id = r.id
     <include refid="queryByIdOrName_where_sql"/>
   </select>
 
   <select id="queryByPage" resultMap="UserTableResultMap">
     SELECT
     <include refid="user_column_sql"/>,
-    <include refid="role_column_sql"/>,
-    <include refid="resource_column_sql"/>
+    <include refid="role_column_sql"/>
     FROM user u
     LEFT JOIN user_role ur on u.id = ur.user_id
     LEFT JOIN role r on ur.role_id = r.id
-    LEFT JOIN role_resource rr on r.id = rr.role_id
-    LEFT JOIN resource rc on rr.resource_id = rc.id
     <include refid="queryByIdOrName_where_sql"/>
   </select>
 </mapper>

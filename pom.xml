@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.chenyh</groupId>
-    <artifactId>gend</artifactId>
+    <groupId>com.chenxun</groupId>
+    <artifactId>seed-end</artifactId>
     <version>0.2.1</version>
     <packaging>jar</packaging>
 
-    <name>gend</name>
-    <description>gend是一个SpringBoot的骨架项目，该项目集成SpringBoot2与众多常用框架，供学习使用</description>
+    <name>seed-end</name>
+    <description>seed-end 敏捷开发种子</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,11 +19,11 @@
     </parent>
 
     <properties>
-        <project.author.name>chenyh</project.author.name>
+        <project.author.name>chenxun</project.author.name>
         <project.author.url></project.author.url>
         <project.author.email>cyh9886@163.com</project.author.email>
-        <project.package.core>cn.chenyh</project.package.core>
-        <project.package.service>cn.chenyh.service</project.package.service>
+        <project.package.core>cn.chenxun</project.package.core>
+        <project.package.service>cn.chenxun.service</project.package.service>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -48,13 +48,12 @@
         <log4j.version>2.10.0</log4j.version>
         <swagger.version>2.8.0</swagger.version>
         <pagehelper.starter.version>1.2.5</pagehelper.starter.version>
-        <fastjson.version>1.2.58</fastjson.version>
 
         <!-- MyBatis Generator -->
         <!-- Java接口和实体类 -->
         <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
-        <targetMapperPackage>cn.chenyh.mapper</targetMapperPackage>
-        <targetModelPackage>cn.chenyh.entity</targetModelPackage>
+        <targetMapperPackage>cn.chenxun.mapper</targetMapperPackage>
+        <targetModelPackage>cn.chenxun.entity</targetModelPackage>
         <!-- XML生成路径 -->
         <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
         <targetXMLPackage>XMLMAPPER</targetXMLPackage>
@@ -87,16 +86,19 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${redis.version}</version>
         </dependency>
 
         <!--pagehelper-->
@@ -145,10 +147,23 @@
             <artifactId>shiro-spring</artifactId>
             <version>${shiro.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shiro</groupId>-->
+<!--            <artifactId>shiro-ehcache</artifactId>-->
+<!--            <version>${shiro.version}</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>${shiro.version}</version>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>2.4.2.1-RELEASE</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
         </dependency>
 
         <!-- configuration: 用于自动识别ConfigurationProperties，可以从被@ConfigurationProperties注解的节点轻松的产生自己的配置元数据文件；
@@ -249,13 +264,6 @@
             <version>${commons.logging.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-
         <!--tools Jar-->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -282,22 +290,26 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.dyuproject.protostuff</groupId>
-            <artifactId>protostuff-api</artifactId>
-            <version>1.0.8</version>
-        </dependency>
-        <dependency>
-            <groupId>com.dyuproject.protostuff</groupId>
-            <artifactId>protostuff-core</artifactId>
-            <version>1.0.8</version>
-        </dependency>
-        <dependency>
-            <groupId>com.dyuproject.protostuff</groupId>
-            <artifactId>protostuff-runtime</artifactId>
-            <version>1.0.8</version>
-        </dependency>
 
+        <!--JWT java web token 权限验证-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

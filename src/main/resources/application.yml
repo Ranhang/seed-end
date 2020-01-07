@@ -14,6 +14,13 @@
 server:
   port: 9002
 spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+    time-zone: GMT+8
   profiles:
     active: dev
   datasource:
@@ -43,7 +50,7 @@ mybatis:
 ###############################################################################
 ## mapper
 mapper:
-  mappers: cn.chenyh.common.base.BaseMapper
+  mappers: cn.chenxun.common.base.BaseMapper
   not-empty: false
   identity: Mysql
 ###############################################################################
