@@ -24,32 +24,18 @@ public class SessionUtil {
         return subject == null ? null : subject.getSession();
     }
 
-    /**
-     * 获取当前Session的ID
-     *
-     * @return 当前Session的ID
-     */
-    public static String getCurrentSessionId() {
-        return getCurrentSession() == null ? null : getCurrentSession().getId().toString();
-    }
 
     /**
      * 获取当前的用户对象
      *
      * @return 当前用户
      */
-    public static User getCurrentUser() {
-        return getCurrentSession() == null ? null : (User) getCurrentSession().getAttribute(SessionEnum.CURRENT_USER.getValue());
+    public static String getCurrentLoginName() {
+        Subject subject = SecurityUtils.getSubject();
+        Object principal = subject.getPrincipal();
+        return String.valueOf(principal).replace("\"", "");
     }
 
-    /**
-     * 获取当前用户的ID
-     *
-     * @return 当前用户的ID
-     */
-    public static Long getCurrentUserId() {
-        return getCurrentUser() == null ? null : getCurrentUser().getId();
-    }
 
     /**
      * 存储参数到Session

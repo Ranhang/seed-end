@@ -2,11 +2,8 @@ package cn.chenxun.system.controller.user;
 
 import cn.chenxun.common.base.Response;
 import cn.chenxun.common.base.ResponseResult;
-import cn.chenxun.common.enums.ResponseResultEnum;
-import cn.chenxun.common.exception.BusinessException;
 import cn.chenxun.common.jwt.JwtToken;
 import cn.chenxun.common.utils.JwtUtil;
-import cn.chenxun.common.utils.StringUtil;
 import cn.chenxun.system.model.user.User;
 import cn.chenxun.system.service.IUserService;
 import cn.chenxun.system.vo.user.LoginUser;
@@ -65,7 +62,6 @@ public class UserController {
     }
 
     @GetMapping("/api/user/info")
-    @RequiresPermissions("system:user:get")
     @ApiOperation("查询当前用户信息")
     public ResponseResult<UserVo> queryByIdOrName() {
         Subject subject = SecurityUtils.getSubject();
@@ -78,7 +74,11 @@ public class UserController {
     @GetMapping("/api/user")
     @RequiresPermissions("system:user:get")
     @ApiOperation("分页")
-    public ResponseResult queryByPage(@RequestBody UserTableVo userTableVo) {
+    public ResponseResult queryByPage(@RequestParam("pageNo") int pageNo,
+                                      @RequestParam("pageSize") int pageSize) {
+        UserTableVo userTableVo = new UserTableVo();
+        userTableVo.setPageNum(pageNo);
+        userTableVo.setRows(pageSize);
         List<UserTableVo> userList = userService.queryByPage(userTableVo);
         PageInfo<UserTableVo> pageInfo = new PageInfo<>(userList);
         return Response.success(pageInfo);
